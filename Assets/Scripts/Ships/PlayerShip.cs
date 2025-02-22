@@ -6,27 +6,21 @@ using static UnityEngine.GraphicsBuffer;
 public class PlayerShip : MonoBehaviour
 {
 
-    private static PlayerShip _instance;
+    private static PlayerShip instance;
 
     public static PlayerShip Instance
     {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = GameObject.FindObjectOfType<PlayerShip>();
-            }
-
-            return _instance;
-        }
+        get { return instance; }
     }
 
-    void Awake()
+    private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+        else { instance = this; }
     }
-
-
 
     //[SerializeField] ShipSettings settings;
     [SerializeField] int speed;
@@ -68,7 +62,7 @@ public class PlayerShip : MonoBehaviour
     
     private void Shoot()
     {
-        if (enableShoot && (Input.GetMouseButton(0) || Input.GetMouseButton(1)) )
+        if (GameManager.Instance.playing && enableShoot && (Input.GetMouseButton(0) || Input.GetMouseButton(1)) )
         {
             if (currentShootType == ShootType.Projectile && Input.GetMouseButton(0))
             {
@@ -82,7 +76,7 @@ public class PlayerShip : MonoBehaviour
                 beamStrength += Time.deltaTime;
             }
         }
-        if (enableShoot && currentShootType == ShootType.Beam && Input.GetMouseButtonUp(1))
+        if (GameManager.Instance.playing && enableShoot && currentShootType == ShootType.Beam && Input.GetMouseButtonUp(1))
         {
             ShootBeam();
             beamStrength = 0;

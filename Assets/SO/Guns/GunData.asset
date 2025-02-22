@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fireRate: 2
   projectilePrefab: {fileID: 592952599002642953, guid: d611878baf4ba55428651fee34034321, type: 3}
+  shootingType: 0

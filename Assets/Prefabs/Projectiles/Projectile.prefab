@@ -99,6 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: 4eadcc0c5d8877a4bb085a455bd58a7d, type: 2}
+  target: 1
+  shootingType: 0
 --- !u!58 &984016439053809535
 CircleCollider2D:
   m_ObjectHideFlags: 0

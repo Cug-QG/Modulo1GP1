@@ -27,7 +27,7 @@ public class Gun
     {
         fireCooldown -= Time.deltaTime;
 
-        if (fireCooldown <= 0f)
+        if (GameManager.Instance.playing && fireCooldown <= 0f)
         {
             Shoot();
         }
@@ -35,9 +35,9 @@ public class Gun
 
     private void Shoot() 
     {
-        Object.Instantiate(gun.ProjectilePrefab, firePoint.position, Quaternion.identity);
-        gun.ProjectilePrefab.GetComponent<Projectile>().target = target;
-        gun.ProjectilePrefab.GetComponent<Projectile>().shootingType = gun.ShootingType;
+        GameObject projectile = Object.Instantiate(gun.ProjectilePrefab, firePoint.position, Quaternion.identity);
+        projectile.GetComponent<Projectile>().target = target;
+        projectile.GetComponent<Projectile>().shootingType = gun.ShootingType;
         fireCooldown = 1f / gun.FireRate;
     }
 }

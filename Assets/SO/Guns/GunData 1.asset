@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: GunData 1
   m_EditorClassIdentifier: 
   fireRate: 1
-  projectilePrefab: {fileID: 592952599002642953, guid: d611878baf4ba55428651fee34034321, type: 3}
+  projectilePrefab: {fileID: 592952599002642953, guid: 349b93d62ed6104458379794a652e8ba, type: 3}
+  shootingType: 1
