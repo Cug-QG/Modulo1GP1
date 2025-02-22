@@ -172,7 +172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &378419139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipSettings: {fileID: 11400000, guid: efe5783bd5cbbb94483b0572f1255884, type: 2}
   firePoint: {fileID: 1390833753}
-  gunSettings: {fileID: 11400000, guid: e75c2f8f74187d941a45915f05d487e3, type: 2}
+  gunSettings: {fileID: 11400000, guid: 03b101dd04daf9c4fb5ca5cd1e2366ec, type: 2}
+  motorSettings: {fileID: 11400000, guid: 77150e5042e7b4a4bb8650e4ccee8ce6, type: 2}
 --- !u!50 &378419140
 Rigidbody2D:
   serializedVersion: 4
@@ -566,7 +567,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &739699824
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -628,7 +629,7 @@ Transform:
   m_GameObject: {fileID: 739699823}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.17, y: 1.1265311, z: 0}
+  m_LocalPosition: {x: 1.17, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -722,6 +723,7 @@ MonoBehaviour:
   shipSettings: {fileID: 11400000, guid: efe5783bd5cbbb94483b0572f1255884, type: 2}
   firePoint: {fileID: 1042547576}
   gunSettings: {fileID: 11400000, guid: e50fd6e9bdd7a424989595758fcb49da, type: 2}
+  motorSettings: {fileID: 11400000, guid: 365de1e1cf00ebf4cab640348358f71b, type: 2}
 --- !u!1 &1042547575
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,7 +896,7 @@ Transform:
   m_GameObject: {fileID: 1428692120}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.14, y: 1.49, z: 0}
+  m_LocalPosition: {x: -5.98, y: 1.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

@@ -134,4 +134,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: 4ebe2847b4eff7845b2c80d5047377a9, type: 2}
+  target: 1
+  shootingType: 0
   amplifier: 0

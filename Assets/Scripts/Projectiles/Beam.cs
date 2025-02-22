@@ -6,14 +6,15 @@ public class Beam : Projectile
 {
     public float amplifier;
 
-    private void Start()
+    protected override void Start()
     {
-        transform.localScale *= amplifier;
+        base.Start();
+        transform.localScale *= 1 + amplifier;
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.CompareTag("Enemy"))
+        if (collision.transform.CompareTag(target.ToString()))
         {
             ApplyDamage(settings.Damage * amplifier);
         }

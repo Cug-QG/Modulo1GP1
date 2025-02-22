@@ -1,9 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerShip : MonoBehaviour
 {
+
+    private static PlayerShip _instance;
+
+    public static PlayerShip Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<PlayerShip>();
+            }
+
+            return _instance;
+        }
+    }
+
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
+
+
     //[SerializeField] ShipSettings settings;
     [SerializeField] int speed;
     [SerializeField] float fireRate;
@@ -48,13 +72,14 @@ public class PlayerShip : MonoBehaviour
         {
             if (currentShootType == ShootType.Projectile && Input.GetMouseButton(0))
             {
-                Instantiate(projectilePrefab, gun.position, Quaternion.identity);
+                GameObject projectile = Instantiate(projectilePrefab, gun.position, Quaternion.identity);
+                projectile.GetComponent<Projectile>().target = ShipType.Enemy;
                 fireCooldown = 1f / fireRate;
                 enableShoot = false;
             }
             if (currentShootType == ShootType.Beam && Input.GetMouseButton(1))
             {
-                beamStrength += 1;
+                beamStrength += Time.deltaTime;
             }
         }
         if (enableShoot && currentShootType == ShootType.Beam && Input.GetMouseButtonUp(1))
@@ -69,6 +94,7 @@ public class PlayerShip : MonoBehaviour
     void ShootBeam() 
     {
         GameObject beam = Instantiate(beamPrefab, gun.position, Quaternion.identity);
-        beam.GetComponent<Beam>().amplifier = 1 + beamStrength / 200;
+        beam.GetComponent<Beam>().amplifier = Mathf.Clamp01(beamStrength / 2);
+        beam.GetComponent<Projectile>().target = ShipType.Enemy;
     }
 }
