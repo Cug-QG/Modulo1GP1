@@ -16,7 +16,7 @@ public class Beam : Projectile
     {
         if (collision.transform.CompareTag(target.ToString()))
         {
-            ApplyDamage(settings.Damage * amplifier);
+            ApplyDamage(collision.gameObject, settings.Damage * (1 + amplifier));
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Motor
 {
-    protected float speed = 5;
+    protected float speed;
     public Motor(Transform ship, MotorSettings motor)
     {
         this.ship = ship;

@@ -11,9 +11,20 @@ public class EnemyShip : MonoBehaviour
 
     Gun gun;
     Motor motor;
+    private float _currentHP;
+    public float currentHP
+    {
+        get => _currentHP;
+        set
+        {
+            _currentHP = value;
+            if (_currentHP <= 0) Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
+        currentHP = shipSettings.HP;
         gun = new Gun(firePoint, gunSettings, shipSettings.Type);
 
         switch (motorSettings.Type)

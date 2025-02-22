@@ -22,6 +22,17 @@ public class PlayerShip : MonoBehaviour
         else { instance = this; }
     }
 
+    private float _currentHP = 15;
+    public float currentHP
+    {
+        get => _currentHP;
+        set
+        {
+            _currentHP = value;
+            UIManager.Instance.SetHealthBarValue(_currentHP / 15);
+            if (_currentHP <= 0) GameManager.Instance.GameOver();
+        }
+    }
     //[SerializeField] ShipSettings settings;
     [SerializeField] int speed;
     [SerializeField] float fireRate;
@@ -32,7 +43,17 @@ public class PlayerShip : MonoBehaviour
     bool enableShoot = true;
     float fireCooldown = 0f;
     ShootType currentShootType;
-    float beamStrength = 0;
+    float _beamStrength = 0;
+    float beamStrength
+    {
+        get => _beamStrength;
+        set
+        {
+            _beamStrength = value;
+            UIManager.Instance.SetBeamValue(Mathf.Clamp01(_beamStrength / maxBeamTime));
+        }
+    }
+    float maxBeamTime = 1f;
 
     void Update()
     {
@@ -69,11 +90,14 @@ public class PlayerShip : MonoBehaviour
                 GameObject projectile = Instantiate(projectilePrefab, gun.position, Quaternion.identity);
                 projectile.GetComponent<Projectile>().target = ShipType.Enemy;
                 fireCooldown = 1f / fireRate;
+                beamStrength = 0;
+                //UIManager.Instance.SetBeamValue(Mathf.Clamp01(0));
                 enableShoot = false;
             }
             if (currentShootType == ShootType.Beam && Input.GetMouseButton(1))
             {
                 beamStrength += Time.deltaTime;
+                //UIManager.Instance.SetBeamValue(Mathf.Clamp01(beamStrength / maxBeamTime));
             }
         }
         if (GameManager.Instance.playing && enableShoot && currentShootType == ShootType.Beam && Input.GetMouseButtonUp(1))
@@ -88,7 +112,8 @@ public class PlayerShip : MonoBehaviour
     void ShootBeam() 
     {
         GameObject beam = Instantiate(beamPrefab, gun.position, Quaternion.identity);
-        beam.GetComponent<Beam>().amplifier = Mathf.Clamp01(beamStrength / 2);
+        beam.GetComponent<Beam>().amplifier = Mathf.Clamp01(beamStrength / maxBeamTime);
         beam.GetComponent<Projectile>().target = ShipType.Enemy;
+        //UIManager.Instance.SetBeamValue(0);
     }
 }

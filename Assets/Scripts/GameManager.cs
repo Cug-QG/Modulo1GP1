@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -51,5 +52,16 @@ public class GameManager : MonoBehaviour
     public void ExitGame() 
     {
         Application.Quit();
+    }
+
+    public void GameOver() 
+    {
+        PauseGame();
+        UIManager.Instance.ToggleGameOverMenu(true);
+    }
+
+    public void RestartGame() 
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

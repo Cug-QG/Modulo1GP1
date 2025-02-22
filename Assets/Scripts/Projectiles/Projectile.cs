@@ -24,12 +24,19 @@ public class Projectile : MonoBehaviour
     {
         if (collision.transform.CompareTag(target.ToString()))
         {
-            ApplyDamage(settings.Damage);
+            ApplyDamage(collision.gameObject, settings.Damage);
             Destroy(gameObject);
         }
     }
 
-    protected virtual void ApplyDamage(float dmg) { print(dmg); }
+    protected virtual void ApplyDamage(GameObject target, float dmg) 
+    {
+        EnemyShip enemy = target.GetComponent<EnemyShip>();
+        if (enemy != null) enemy.currentHP -= dmg;
+
+        PlayerShip player = target.GetComponent<PlayerShip>();
+        if (player != null) player.currentHP -= dmg;
+    }
 
     void SetUp() 
     {
