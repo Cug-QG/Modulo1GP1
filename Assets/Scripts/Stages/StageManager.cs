@@ -87,7 +87,8 @@ public class StageManager : MonoBehaviour
             GameObject enemy = Instantiate(enemies.enemyPrefab, spawnParent.position, Quaternion.identity, spawnParent);
             livingEnemies.Add(enemy);
             float randomY = Random.Range(minYspawnPosition.position.y, maxYspawnPosition.position.y);
-            enemy.transform.position = new Vector2(spawnParent.position.x, randomY);
+            Vector2 position = new Vector2(spawnParent.position.x, randomY);
+            enemy.transform.position = position;
             yield return new WaitForSeconds(enemies.spawnDelay);
         }
     }
