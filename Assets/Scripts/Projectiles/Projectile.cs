@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Projectile : MonoBehaviour
 {
@@ -40,15 +41,19 @@ public class Projectile : MonoBehaviour
 
     void SetUp() 
     {
+        ChooseDirection();
         switch (shootingType)
         {
             case ShootingType.Classic:
-                ChooseDirection();
                 break;
             case ShootingType.Aim:
-                direction = PlayerShip.Instance.transform.position;
-                direction -= (Vector2)transform.position;
-                direction.Normalize();
+                Vector2 tempDirection = direction;
+                tempDirection = PlayerShip.Instance.transform.position;
+                tempDirection -= (Vector2)transform.position;
+                tempDirection.Normalize();
+                float angle = Mathf.Atan2(tempDirection.y, tempDirection.x) * Mathf.Rad2Deg;
+                transform.rotation = angle < 90 && angle > -90? Quaternion.Euler(180, 0, -(180 + angle)) : Quaternion.Euler(0, 0, 180 + angle);
+
                 break;
             default:
                 break;
@@ -60,10 +65,10 @@ public class Projectile : MonoBehaviour
         switch (target)
         {
             case ShipType.Enemy:
-                direction = transform.right;
+                direction = new Vector2(1, 0);
                 break;
             case ShipType.Player:
-                direction = -transform.right;
+                direction = new Vector2(-1,0);
                 break;
             default:
                 break;

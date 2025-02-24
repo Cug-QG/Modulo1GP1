@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57c7fba07bf9fc4cbdcc310a232302d, type: 3}
-  m_Name: GunData 1
+  m_Script: {fileID: 11500000, guid: 04f7d049616ebfd49a3589da1dcb3e4c, type: 3}
+  m_Name: Boss
   m_EditorClassIdentifier: 
-  fireRate: 1
-  projectilePrefab: {fileID: 592952599002642953, guid: 349b93d62ed6104458379794a652e8ba, type: 3}
-  shootingType: 1
+  hp: 200
+  type: 0

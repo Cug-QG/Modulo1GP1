@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Motor
 {
-    protected float speed;
     public Motor(Transform ship, MotorSettings motor)
     {
         this.ship = ship;
@@ -16,6 +15,6 @@ public class Motor
 
     public virtual void Tick()
     {
-        ship.Translate(-ship.right * Time.deltaTime * speed);
+        ship.Translate(-ship.right * Time.deltaTime * motor.Speed);
     }
 }

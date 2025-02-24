@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2373202cc7c15ad4d824bab0f0414416, type: 3}
+  m_Name: RoundData
+  m_EditorClassIdentifier: 
+  waves:
+  - {fileID: 11400000, guid: a1db5c287f3219c499d3ff0a5037bb9b, type: 2}
+  - {fileID: 11400000, guid: a1db5c287f3219c499d3ff0a5037bb9b, type: 2}
+  delayBetweenWaves: 1
+  waveDelay: 2
+  hasBoss: 0
+  bossPrefab: {fileID: 0}

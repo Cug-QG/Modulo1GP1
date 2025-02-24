@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class PlayerShip : MonoBehaviour
 {
@@ -22,18 +21,18 @@ public class PlayerShip : MonoBehaviour
         else { instance = this; }
     }
 
-    private float _currentHP = 15;
+    private float _currentHP;
     public float currentHP
     {
         get => _currentHP;
         set
         {
             _currentHP = value;
-            UIManager.Instance.SetHealthBarValue(_currentHP / 15);
+            UIManager.Instance.SetHealthBarValue(_currentHP / settings.HP);
             if (_currentHP <= 0) GameManager.Instance.GameOver();
         }
     }
-    //[SerializeField] ShipSettings settings;
+    [SerializeField] ShipSettings settings;
     [SerializeField] int speed;
     [SerializeField] float fireRate;
 
@@ -55,11 +54,40 @@ public class PlayerShip : MonoBehaviour
     }
     float maxBeamTime = 1f;
 
+    private Vector3 _screenBounds;
+    private float _playerWidth;
+    private float _playerHeight;
+
+    private void Start()
+    {
+        currentHP = settings.HP;
+        // screen limits
+        _screenBounds = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
+
+        // half of the player sizes
+        _playerWidth = GetComponentInChildren<SpriteRenderer>().bounds.extents.x;
+        _playerHeight = GetComponentInChildren<SpriteRenderer>().bounds.extents.y;
+    }
+    
     void Update()
     {
+        Move();
+        Shooting();
+    }
+
+    private void Move() 
+    {
+        KeepPlayerInBounds();
         transform.Translate(transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * speed);
         transform.Translate(transform.up * Input.GetAxis("Vertical") * Time.deltaTime * speed);
-        Shooting();
+    }
+
+    private void KeepPlayerInBounds()
+    {
+        float clampedX = Mathf.Clamp(transform.position.x, -_screenBounds.x + _playerWidth, _screenBounds.x - _playerWidth);
+        float clampedY = Mathf.Clamp(transform.position.y, -_screenBounds.y + _playerHeight, _screenBounds.y - _playerHeight);
+
+        transform.position = new Vector3(clampedX, clampedY, transform.position.z);
     }
 
     void Shooting() 
@@ -115,5 +143,10 @@ public class PlayerShip : MonoBehaviour
         beam.GetComponent<Beam>().amplifier = Mathf.Clamp01(beamStrength / maxBeamTime);
         beam.GetComponent<Projectile>().target = ShipType.Enemy;
         //UIManager.Instance.SetBeamValue(0);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy")) currentHP = 0;
     }
 }

@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class Gun
 {
-    float fireCooldown = 0f;
+    float fireCooldown;
     ShipType target;
 
-    public Gun(Transform firePoint, GunSettings gun, ShipType targetType)
+    public Gun(List<Transform> firePoints, GunSettings gun, ShipType targetType)
     {
-        this.firePoint = firePoint;
+        this.firePoints = firePoints;
         this.gun = gun;
 
         target = targetType == ShipType.Player ? ShipType.Enemy : ShipType.Player;
+        fireCooldown = 1f / gun.FireRate;
     }
 
-    public Transform firePoint { get; private set; }
+    public List<Transform> firePoints { get; private set; }
     public GunSettings gun { get; private set; }
 
     public void Tick() 
@@ -29,13 +30,17 @@ public class Gun
 
         if (GameManager.Instance.playing && fireCooldown <= 0f)
         {
-            Shoot();
+            foreach (var item in firePoints)
+            {
+                Shoot(item);
+            }
         }
     }
 
-    private void Shoot() 
+    private void Shoot(Transform firePoint) 
     {
-        GameObject projectile = Object.Instantiate(gun.ProjectilePrefab, firePoint.position, Quaternion.identity);
+        GameObject projectile = Object.Instantiate(gun.ProjectilePrefab, firePoint.position, firePoint.rotation);
+        //GameObject projectile = Object.Instantiate(gun.ProjectilePrefab, firePoint.position, Quaternion.identity);
         projectile.GetComponent<Projectile>().target = target;
         projectile.GetComponent<Projectile>().shootingType = gun.ShootingType;
         fireCooldown = 1f / gun.FireRate;

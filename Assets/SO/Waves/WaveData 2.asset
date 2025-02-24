@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c57c7fba07bf9fc4cbdcc310a232302d, type: 3}
-  m_Name: GunData
+  m_Script: {fileID: 11500000, guid: a7042664496420349894d04403c1bc1e, type: 3}
+  m_Name: WaveData 2
   m_EditorClassIdentifier: 
-  fireRate: 2
-  projectilePrefab: {fileID: 592952599002642953, guid: d611878baf4ba55428651fee34034321, type: 3}
-  shootingType: 0
+  enemies:
+  - enemyPrefab: {fileID: 4937282671870576929, guid: e7d0d0f0855c0cc4c8b5f265bca980c2, type: 3}
+    number: 3
+    spawnPosition: {x: 0, y: 0}
+    spawnDelay: 1
